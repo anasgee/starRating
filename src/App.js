@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+
+import "./index.css";
+import { FaStar } from "react-icons/fa";
+import { useState } from "react";
 
 function App() {
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {[...Array(5)].map((currElement, i) => {
+        const ratingValue = i + 1;
+
+        return (
+          <label>
+            <input
+              type="radio"
+              name="star"
+              value={ratingValue}
+              onClick={() => setRating(ratingValue)}
+            />
+            <FaStar
+              onMouseEnter={() => {
+                setHover(ratingValue);
+              }}
+              onMouseLeave={() => {
+                setHover(null);
+              }}
+              className="star"
+              color={ratingValue <= (hover||rating) ? "#ffc107" : "#e4e5e9"}
+              size={100}
+            />
+          </label>
+        );
+      })}
     </div>
   );
 }
